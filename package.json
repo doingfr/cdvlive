@@ -1,10 +1,10 @@
 {
-  "name": "cordova-livereload",
+  "name": "clive",
   "version": "1.0.0-dev",
   "description": "Helper tool to emulate and run cordova apps in livereload mode",
-  "main": "./cli/cordova-livereload.js",
+  "main": "./cli/clive.js",
   "bin": {
-    "taco": "./bin/cordova-livereload"
+    "taco": "./bin/clive"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

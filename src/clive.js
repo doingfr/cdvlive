@@ -73,4 +73,4 @@ var CordovaLiveReload = (function () {
     return CordovaLiveReload;
 }());
 module.exports = CordovaLiveReload;
-//# sourceMappingURL=cordova-livereload.js.map
+//# sourceMappingURL=clive.js.map
