@@ -2,7 +2,7 @@ Cordova live reload utility
 
 Install
 
-    $ npm install -g clive
+    $ npm install -g clive cordova
     
 Use
 

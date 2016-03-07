@@ -1,10 +1,10 @@
 {
-  "name": "clive",
+  "name": "cdvlive",
   "version": "1.0.0-dev1",
   "description": "Cordova Live Reload",
-  "main": "./cli/clive.js",
+  "main": "./cli/cdvlive.js",
   "bin": {
-    "taco": "./bin/clive"
+    "cdvlive": "./bin/cdvlive"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
