@@ -30,7 +30,7 @@ var ConfigXml = (function () {
         if (!appDirectory) {
             appDirectory = process.cwd();
         }
-        console.log('ConfigXml.setConfigXml', appDirectory, options);
+        //console.log('ConfigXml.setConfigXml', appDirectory, options);
         var configXmlPath = path.join(appDirectory, 'config.xml');
         if (!fs.existsSync(configXmlPath)) {
             // working directory does not have the config.xml file
@@ -53,13 +53,7 @@ var ConfigXml = (function () {
                 }
                 if (configJson.widget.content[0].$.src !== options.devServer) {
                     configJson.widget.content[0].$.src = options.devServer;
-                    madeChange = true;
-                }
-            }
-            else if (options.resetContent) {
-                if (configJson.widget.content[0].$['original-src']) {
-                    configJson.widget.content[0].$.src = configJson.widget.content[0].$['original-src'];
-                    delete configJson.widget.content[0].$['original-src'];
+                    console.log('update: config.xml <content src="', options.devServer, '" />');
                     madeChange = true;
                 }
             }
@@ -75,6 +69,7 @@ var ConfigXml = (function () {
                             'clive': true
                         }
                     });
+                    console.log('update: config.xml <allow-navigation href="*" />');
                     madeChange = true;
                 }
             }
@@ -86,6 +81,7 @@ var ConfigXml = (function () {
                         'clive': true
                     }
                 };
+                console.log('update: config.xml <content src="', options.devServer, '" />');
                 madeChange = true;
             }
             if (madeChange) {
@@ -100,7 +96,7 @@ var ConfigXml = (function () {
         if (!appDirectory) {
             appDirectory = process.cwd();
         }
-        console.log('ConfigXml.resetConfigXml', appDirectory);
+        //console.log('ConfigXml.resetConfigXml', appDirectory);
         var configXmlPath = path.join(appDirectory, 'config.xml');
         if (!fs.existsSync(configXmlPath)) {
             // working directory does not have the config.xml file
@@ -120,6 +116,7 @@ var ConfigXml = (function () {
             if (configJson.widget.content[0].$['original-src']) {
                 configJson.widget.content[0].$.src = configJson.widget.content[0].$['original-src'];
                 delete configJson.widget.content[0].$['original-src'];
+                console.log('update: config.xml restore <content src="', configJson.widget.content[0].$['original-src'], '" />');
                 madeChange = true;
             }
             //remove <allow-navigation href="*" clive="true">
@@ -128,6 +125,7 @@ var ConfigXml = (function () {
                 configJson.widget['allow-navigation'].forEach(function (element, index, array) {
                     if (element.$['clive']) {
                         array.splice(index, 1);
+                        console.log('update: config.xml remove <allow-navigation href="*" />');
                     }
                 });
             }

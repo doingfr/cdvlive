@@ -22,10 +22,11 @@ var CordovaLiveReload = (function () {
         platform = process.argv[2];
         serverPath = platform === 'ios' ? 'platforms/ios/www' : 'platforms/android/assets/www';
         // Listen to change events on HTML and reload
-        bs.watch("www/**/*.*").on("change", function () {
-            console.log('running cordova prepare');
+        bs.watch("www/**/*.*").on("change", function (file) {
+            console.log('exec: cordova prepare');
             exec("cordova prepare");
-            bs.reload();
+            console.log(file);
+            bs.reload(file);
         });
         // Now init the Browsersync server
         bs.init({
@@ -36,7 +37,8 @@ var CordovaLiveReload = (function () {
                 {
                     match: /<meta http-equiv="Content-Security-Policy".*>/g,
                     fn: function (match) {
-                        console.log('removing CSP ', match);
+                        console.log('server: rewrite remove <meta http-equiv="Content-Security-Policy"...  ');
+                        console.log('Ctrl+C to exit');
                         return '';
                     }
                 }
@@ -45,15 +47,17 @@ var CordovaLiveReload = (function () {
             liveUrl = bs.options.getIn(["urls", "external"]);
             _this.setupConfigXML(liveUrl)
                 .then(function () {
-                console.log("cordova config.xml is ready for clive");
-                console.log('exec: cordova run', platform);
+                console.log('exec: cordova run ', platform);
+                exec("cordova run " + platform);
+                /* TODO: if debug then print output from run
                 exec("cordova run " + platform, {
-                    "stdio": "inherit"
+                  "stdio": "inherit"
                 });
+                */
                 return _this.resetConfigXML();
             })
                 .then(function () {
-                console.log('clive: done reset config.xml');
+                console.log('This takes a while if you don\'t have emulator or simulator already running');
             })
                 .catch(function (error) {
                 console.error(error);
@@ -81,6 +85,7 @@ var CordovaLiveReload = (function () {
         console.log("  $ cdvlive ios");
         console.log("  $ cdvlive android");
         console.log("\n");
+        console.log("If device is attached then it runs on device if not then falls back to emulator/simulator");
     };
     return CordovaLiveReload;
 }());

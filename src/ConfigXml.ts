@@ -39,7 +39,7 @@ class ConfigXml {
       appDirectory = process.cwd();
     }
 
-    console.log('ConfigXml.setConfigXml', appDirectory, options);
+    //console.log('ConfigXml.setConfigXml', appDirectory, options);
 
     var configXmlPath = path.join(appDirectory, 'config.xml');
 
@@ -65,17 +65,11 @@ class ConfigXml {
           }
           if (configJson.widget.content[0].$.src !== options.devServer) {
             configJson.widget.content[0].$.src = options.devServer;
+            console.log('update: config.xml <content src="',options.devServer,'" />');
             madeChange = true;
           }
 
-        } else if (options.resetContent) {
-
-          if (configJson.widget.content[0].$['original-src']) {
-            configJson.widget.content[0].$.src = configJson.widget.content[0].$['original-src'];
-            delete configJson.widget.content[0].$['original-src'];
-            madeChange = true;
-          }
-        }
+        } 
         
         //add <allow-navigation href="*">
         if (configJson.widget['allow-navigation']) {
@@ -91,6 +85,7 @@ class ConfigXml {
                 'clive': true
               }
             })
+            console.log('update: config.xml <allow-navigation href="*" />');
             madeChange = true;
           }
 
@@ -103,6 +98,7 @@ class ConfigXml {
               'clive': true
             }
           }
+          console.log('update: config.xml <content src="',options.devServer,'" />');
           madeChange = true;
         }
 
@@ -121,7 +117,7 @@ class ConfigXml {
       appDirectory = process.cwd();
     }
 
-    console.log('ConfigXml.resetConfigXml', appDirectory);
+    //console.log('ConfigXml.resetConfigXml', appDirectory);
 
     var configXmlPath = path.join(appDirectory, 'config.xml');
 
@@ -144,6 +140,7 @@ class ConfigXml {
         if (configJson.widget.content[0].$['original-src']) {
           configJson.widget.content[0].$.src = configJson.widget.content[0].$['original-src'];
           delete configJson.widget.content[0].$['original-src'];
+          console.log('update: config.xml restore <content src="',configJson.widget.content[0].$['original-src'],'" />');
           madeChange = true;
         }
         
@@ -154,6 +151,7 @@ class ConfigXml {
           configJson.widget['allow-navigation'].forEach((element: any, index: number, array: Array<any>) => {
             if (element.$['clive']) {
               array.splice(index, 1);
+              console.log('update: config.xml remove <allow-navigation href="*" />');
             }
           });
 
