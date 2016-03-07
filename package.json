@@ -1,6 +1,6 @@
 {
   "name": "clive",
-  "version": "1.0.0-dev",
+  "version": "1.0.0-dev1",
   "description": "Helper tool to emulate and run cordova apps in livereload mode",
   "main": "./cli/clive.js",
   "bin": {
