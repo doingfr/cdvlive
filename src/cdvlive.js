@@ -25,7 +25,6 @@ var CordovaLiveReload = (function () {
         bs.watch("www/**/*.*").on("change", function (file) {
             console.log('exec: cordova prepare');
             exec("cordova prepare");
-            console.log(file);
             bs.reload(file);
         });
         // Now init the Browsersync server
@@ -47,6 +46,7 @@ var CordovaLiveReload = (function () {
             _this.setupConfigXML(liveUrl)
                 .then(function () {
                 console.log('exec: cordova run ', platform);
+                console.log('This takes a while if you don\'t have emulator or simulator already running');
                 exec("cordova run " + platform);
                 /* TODO: if debug then print output from run
                 exec("cordova run " + platform, {
@@ -56,7 +56,6 @@ var CordovaLiveReload = (function () {
                 return _this.resetConfigXML();
             })
                 .then(function () {
-                console.log('This takes a while if you don\'t have emulator or simulator already running');
                 console.log('Ctrl+C to exit');
             })
                 .catch(function (error) {

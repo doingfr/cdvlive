@@ -53,7 +53,7 @@ var ConfigXml = (function () {
                 }
                 if (configJson.widget.content[0].$.src !== options.devServer) {
                     configJson.widget.content[0].$.src = options.devServer;
-                    console.log('update: config.xml <content src="', options.devServer, '" />');
+                    console.log('update: config.xml <content src="' + options.devServer + '" />');
                     madeChange = true;
                 }
             }
@@ -115,8 +115,8 @@ var ConfigXml = (function () {
             //reset content
             if (configJson.widget.content[0].$['original-src']) {
                 configJson.widget.content[0].$.src = configJson.widget.content[0].$['original-src'];
+                console.log('update: config.xml restore <content src="' + configJson.widget.content[0].$['original-src'] + '" />');
                 delete configJson.widget.content[0].$['original-src'];
-                console.log('update: config.xml restore <content src="', configJson.widget.content[0].$['original-src'], '" />');
                 madeChange = true;
             }
             //remove <allow-navigation href="*" clive="true">
