@@ -45,8 +45,8 @@ class CordovaLiveReload {
         {
           match: /<meta http-equiv="Content-Security-Policy".*>/g,
           fn: function (match) {
-            console.log('server: rewrite remove <meta http-equiv="Content-Security-Policy"...  ');
-            console.log('Ctrl+C to exit');
+            //console.log('server: rewrite remove <meta http-equiv="Content-Security-Policy"...  ');
+
             return '';
           }
         }
@@ -67,6 +67,7 @@ class CordovaLiveReload {
         })
         .then(() => {
           console.log('This takes a while if you don\'t have emulator or simulator already running');
+          console.log('Ctrl+C to exit');
         })
         .catch((error) => {
           console.error(error);
