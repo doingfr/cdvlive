@@ -1,7 +1,7 @@
 {
   "name": "clive",
   "version": "1.0.0-dev1",
-  "description": "Helper tool to emulate and run cordova apps in livereload mode",
+  "description": "Cordova Live Reload",
   "main": "./cli/clive.js",
   "bin": {
     "taco": "./bin/clive"
@@ -10,7 +10,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "author": "Carlos Santana",
+  "homepage": "https://github.com/csantanapr/clive",
+  "author": {
+    "name": "Carlos Santana",
+    "url": "https://github.com/csantanapr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/csantanapr/clive.git"
+  },
+  "bugs": {
+    "url": "https://github.com/csantanapr/clive/issues"
+  },
   "license": "Apache-2.0",
   "devDependencies": {
     "typescript": "^1.8.2"
