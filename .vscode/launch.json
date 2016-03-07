@@ -8,7 +8,7 @@
 			"program": "${workspaceRoot}/bin/cordova-livereload",
 			"stopOnEntry": false,
 			"args": ["ios"],
-			"cwd": "${workspaceRoot}",
+			"cwd": "${workspaceRoot}/test/fixtures/cdvapp",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
 				"--nolazy"

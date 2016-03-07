@@ -1,6 +1,6 @@
 {
   "name": "cordova-livereload",
-  "version": "1.0.0",
+  "version": "1.0.0-dev",
   "description": "Helper tool to emulate and run cordova apps in livereload mode",
   "main": "./cli/cordova-livereload.js",
   "bin": {
