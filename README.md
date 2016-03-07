@@ -7,7 +7,8 @@ Install
 Use
 
     $ cdvlive ios
+    or
     $ cdvlive android
    
-Tip: For Android is better to have the android emulator running before running clive command
+Tip: For Android is better to have the android emulator running before running cdvlive command
  

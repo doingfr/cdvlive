@@ -21,8 +21,9 @@ class CordovaLiveReload {
     var serverPath: string;
 
     if (process.argv.length < 3) {
-      console.error("missing platform id ios or android");
-      return;
+      console.error("Error: missing platform ios or android");
+      this.printUsage();
+      process.exit(1);
     }
     platform = process.argv[2];
 
@@ -78,6 +79,16 @@ class CordovaLiveReload {
     return ConfigXml.resetConfigXml(process.cwd(), {
       errorWhenNotFound: true
     })
+  }
+  private static printUsage(): void {
+    console.log("\ncdvlive (Live Reload for Apache Cordova)");
+    console.log("\n\nUsage: cdvlive <platform>");
+    console.log("\nSupported platforms:");
+    console.log("  ios ........ iOS");
+    console.log("  android .... Android");
+    console.log("\nExamples:");
+    console.log("  $ cdvlive ios");
+    console.log("  $ cdvlive android");
   }
 
 }
