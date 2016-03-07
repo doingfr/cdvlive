@@ -10,17 +10,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "homepage": "https://github.com/csantanapr/clive",
+  "homepage": "https://github.com/csantanapr/cdvlive",
   "author": {
     "name": "Carlos Santana",
     "url": "https://github.com/csantanapr"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/csantanapr/clive.git"
+    "url": "git://github.com/csantanapr/cdvlive.git"
   },
   "bugs": {
-    "url": "https://github.com/csantanapr/clive/issues"
+    "url": "https://github.com/csantanapr/cdvlive/issues"
   },
   "license": "Apache-2.0",
   "devDependencies": {
