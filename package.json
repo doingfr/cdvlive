@@ -1,6 +1,6 @@
 {
   "name": "cdvlive",
-  "version": "1.0.0-dev4",
+  "version": "1.0.0-dev5",
   "description": "Live Reload for Apache Cordova",
   "main": "./cli/cdvlive.js",
   "bin": {
@@ -30,5 +30,8 @@
     "browser-sync": "^2.11.1",
     "q": "^1.4.1",
     "xml2js": "^0.4.16"
+  },
+  "engines": {
+    "node": ">=4.2.0"
   }
 }
