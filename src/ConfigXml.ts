@@ -1,6 +1,4 @@
-/// <reference path="../typings/node/node.d.ts" />
-/// <reference path="../typings/xml2js/xml2js.d.ts" />
-/// <reference path="../typings/q/Q.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 
 "use strict";
 

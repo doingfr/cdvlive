@@ -1,8 +1,6 @@
-/// <reference path="../typings/node/node.d.ts" />
-/// <reference path="../typings/q/Q.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 
 "use strict";
-
 
 import child_process = require("child_process");
 import Q = require('q');
