@@ -30,7 +30,16 @@ var CordovaLiveReload = (function () {
         bs.init({
             server: serverPath,
             notify: false,
-            open: false
+            open: false,
+            rewriteRules: [
+                {
+                    match: /<meta http-equiv="Content-Security-Policy".*>/g,
+                    fn: function (match) {
+                        console.log('removing CSP ', match);
+                        return '';
+                    }
+                }
+            ]
         }, function (err, bs) {
             liveUrl = bs.options.getIn(["urls", "external"]);
             _this.setupConfigXML(liveUrl)

@@ -38,14 +38,23 @@ class CordovaLiveReload {
     bs.init({
       server: serverPath,
       notify: false,
-      open: false
+      open: false,
+      rewriteRules: [
+        {
+          match: /<meta http-equiv="Content-Security-Policy".*>/g,
+          fn: function (match) {
+            console.log('removing CSP ',match);
+            return '';
+          }
+        }
+      ]
     }, (err: Error, bs: { options: any }) => {
       liveUrl = bs.options.getIn(["urls", "external"]);
       this.setupConfigXML(liveUrl)
         .then(() => {
           console.log("cordova config.xml is ready for clive");
           console.log('exec: cordova run', platform);
-          exec("cordova run "+platform, {
+          exec("cordova run " + platform, {
             "stdio": "inherit"
           });
           return this.resetConfigXML();
