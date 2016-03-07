@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var CordovaLiveReload = require('./../src/cordova-livereload');
+CordovaLiveReload.run();

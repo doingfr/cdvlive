@@ -1,0 +1,23 @@
+{
+  "name": "cordova-livereload",
+  "version": "1.0.0",
+  "description": "Helper tool to emulate and run cordova apps in livereload mode",
+  "main": "./cli/cordova-livereload.js",
+  "bin": {
+    "taco": "./bin/cordova-livereload"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "Carlos Santana",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^1.8.2"
+  },
+  "dependencies": {
+    "browser-sync": "^2.11.1",
+    "q": "^1.4.1",
+    "xml2js": "^0.4.16"
+  }
+}
