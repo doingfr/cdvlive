@@ -37,14 +37,15 @@ class CordovaLiveReload {
     // Now init the Browsersync server
     bs.init({
       server: serverPath,
-      notify: false
+      notify: false,
+      open: false
     }, (err: Error, bs: { options: any }) => {
       liveUrl = bs.options.getIn(["urls", "external"]);
       this.setupConfigXML(liveUrl)
         .then(() => {
           console.log("cordova config.xml is ready for clive");
           console.log('exec: cordova run', platform);
-          exec("cordova run", {
+          exec("cordova run "+platform, {
             "stdio": "inherit"
           });
           return this.resetConfigXML();
