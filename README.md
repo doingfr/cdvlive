@@ -2,12 +2,12 @@ Cordova live reload utility
 
 Install
 
-    $ npm install -g clive cordova
+    $ npm install -g cdvlive cordova
     
 Use
 
-    $ clive ios
-    $ clive android
+    $ cdvlive ios
+    $ cdvlive android
    
 Tip: For Android is better to have the android emulator running before running clive command
  
