@@ -72,14 +72,15 @@ var CordovaLiveReload = (function () {
         });
     };
     CordovaLiveReload.printUsage = function () {
-        console.log("\ncdvlive (Live Reload for Apache Cordova)");
-        console.log("\n\nUsage: cdvlive <platform>");
+        console.log("\nLive Reload for Apache Cordova");
+        console.log("\nUsage: cdvlive <platform>");
         console.log("\nSupported platforms:");
         console.log("  ios ........ iOS");
         console.log("  android .... Android");
         console.log("\nExamples:");
         console.log("  $ cdvlive ios");
         console.log("  $ cdvlive android");
+        console.log("\n");
     };
     return CordovaLiveReload;
 }());
