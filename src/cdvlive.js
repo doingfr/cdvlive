@@ -45,7 +45,7 @@ var CordovaLiveReload = (function () {
             liveUrl = bs.options.getIn(["urls", "external"]);
             _this.setupConfigXML(liveUrl)
                 .then(function () {
-                console.log('exec: cordova run ', platform);
+                console.log('exec: cordova run', platform);
                 console.log('This takes a while if you don\'t have emulator or simulator already running');
                 exec("cordova run " + platform);
                 /* TODO: if debug then print output from run

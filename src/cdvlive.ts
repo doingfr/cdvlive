@@ -55,7 +55,7 @@ class CordovaLiveReload {
       this.setupConfigXML(liveUrl)
         .then(() => {
           
-          console.log('exec: cordova run ', platform);
+          console.log('exec: cordova run', platform);
           console.log('This takes a while if you don\'t have emulator or simulator already running');
           exec("cordova run " + platform);
           /* TODO: if debug then print output from run
