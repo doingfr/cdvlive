@@ -100,7 +100,6 @@ class CordovaLiveReload {
   private static printUsage(): void {
     console.log('\nLive Reload for Apache Cordova');
     console.log('\nUsage: cdvlive <platform> [OPTIONS] [ROPTS]');
-    console.log('\n');
     console.log('  OPTIONS   --ip <ip address>');
     console.log('  ROPTS     -- <cordova run options>');
     console.log('\nExamples:');
