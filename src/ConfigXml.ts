@@ -151,7 +151,7 @@ class ConfigXml {
           configJson.widget['allow-navigation'].forEach((element: any, index: number, array: Array<any>) => {
             if (element.$['clive']) {
               array.splice(index, 1);
-              console.log('update: config.xml remove <allow-navigation href="*" />');
+              console.log('update: config.xml remove <allow-navigation href="http://*/*" />');
             }
           });
 

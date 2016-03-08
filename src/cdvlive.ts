@@ -18,8 +18,7 @@ class CordovaLiveReload {
     var liveUrl: string;
     var serverPath: string;
     var knownOpts = { "ip": String };
-    var cmd = nopt(knownOpts);
-    console.log(cmd);
+    var cmd = nopt(knownOpts,{},process.argv, 3);
 
     if (process.argv.length < 3) {
       console.error('Error: missing platform ios or android');
@@ -27,8 +26,15 @@ class CordovaLiveReload {
       process.exit(1);
     }
     platform = process.argv[2];
-
-    serverPath = platform === 'ios' ? 'platforms/ios/www' : 'platforms/android/assets/www';
+   
+    if(platform === 'ios'){
+      serverPath = 'platforms/ios/www';
+    } else if (platform == 'android'){
+      serverPath = 'platforms/android/assets/www';
+    } else {
+      this.printUsage();
+      process.exit(1);
+    }
     
     // Listen to change events on HTML and reload
     bs.watch('www/**/*.*').on('change', (file: string) => {
@@ -59,10 +65,10 @@ class CordovaLiveReload {
       }
       this.setupConfigXML(liveUrl)
         .then(() => {
-
-          console.log('exec: cordova run', platform);
+          
+          console.log('exec: cordova run ' + platform + ' ' + cmd.argv.remain.join(' '));
           console.log('This takes a while if you don\'t have emulator or simulator already running');
-          exec('cordova run ' + platform);
+          exec('cordova run ' + platform + ' ' + cmd.argv.remain.join(' '));
           /* TODO: if debug then print output from run
           exec('cordova run ' + platform, {
             'stdio': 'inherit'
@@ -93,13 +99,15 @@ class CordovaLiveReload {
   }
   private static printUsage(): void {
     console.log('\nLive Reload for Apache Cordova');
-    console.log('\nUsage: cdvlive <platform> [cordova run arguments]');
-    console.log('\nSupported platforms:');
-    console.log('  ios ........ iOS');
-    console.log('  android .... Android');
+    console.log('\nUsage: cdvlive <platform> [OPTIONS] [ROPTS]');
+    console.log('\n');
+    console.log('  OPTIONS   --ip <ip address>');
+    console.log('  ROPTS     -- <cordova run options>');
     console.log('\nExamples:');
     console.log('  $ cdvlive ios');
     console.log('  $ cdvlive android');
+    console.log('  $ cdvlive android --ip 10.10.0.2');
+    console.log('  $ cdvlive android --ip 10.10.0.2 -- --emulator');
     console.log('\n');
     console.log('If device is attached then it runs on device if not then falls back to emulator/simulator');
   }
