@@ -81,11 +81,11 @@ class ConfigXml {
             //not found a clive allow-nagivation let add
             configJson.widget['allow-navigation'].push({
               '$': {
-                'href': '*',
+                'href': 'http://*/*',
                 'clive': true
               }
             })
-            console.log('update: config.xml <allow-navigation href="*" />');
+            console.log('update: config.xml <allow-navigation href="http://*/*" />');
             madeChange = true;
           }
 
@@ -94,11 +94,11 @@ class ConfigXml {
           configJson.widget['allow-navigation'] = new Array(1);
           configJson.widget['allow-navigation'][0] = {
             '$': {
-              'href': '*',
+              'href': 'http://*/*',
               'clive': true
             }
           }
-          console.log('update: config.xml <content src="',options.devServer,'" />');
+          console.log('update: config.xml <allow-navigation href="http://*/*" />');
           madeChange = true;
         }
 
