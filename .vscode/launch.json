@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/bin/cdvlive",
 			"stopOnEntry": false,
-			"args": ["ios"],
+			"args": ["ios","--ip","10.10.10.1"],
 			"cwd": "${workspaceRoot}/test/fixtures/cdvapp",
 			"runtimeExecutable": null,
 			"runtimeArgs": [

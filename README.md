@@ -6,11 +6,7 @@ Install
 
 
 ```bash    
-Usage: cdvlive <platform>
-
-Supported platforms:
-  ios ........ iOS
-  android .... Android
+Usage: cdvlive <platform> [cordova run arguments]
 
 Examples:
     $ cdvlive ios
