@@ -1,3 +1,5 @@
+##cdvlive [![Build Status](https://travis-ci.org/csantanapr/cdvlive.svg?branch=master)](https://travis-ci.org/csantanapr/cdvlive)
+
 Live Reload for Apache Cordova
 
 Install
