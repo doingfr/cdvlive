@@ -18,7 +18,6 @@ class ConfigXml {
     }
 
     var configXmlPath = path.join(appDirectory, 'config.xml');
-    var file = path.join(appDirectory, 'config.xml');
 
     fs.readFile(configXmlPath, { encoding: 'utf8' }, function(err: Error, data: any) {
       if (err) return d.reject(err);
@@ -146,8 +145,6 @@ class ConfigXml {
         
         //remove <allow-navigation href="*" clive="true">
         if (configJson.widget['allow-navigation']) {
-          var allowclive = configJson.widget['allow-navigation'].filter((element: any) => element.$['clive']);
-
           configJson.widget['allow-navigation'].forEach((element: any, index: number, array: Array<any>) => {
             if (element.$['clive']) {
               array.splice(index, 1);

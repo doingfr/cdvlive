@@ -50,9 +50,7 @@ class CordovaLiveReload {
       rewriteRules: [
         {
           match: /<meta http-equiv="Content-Security-Policy".*>/g,
-          fn: function(match) {
-            //console.log('server: rewrite remove <meta http-equiv='Content-Security-Policy'...  ');
-
+          fn: function() {
             return '';
           }
         }

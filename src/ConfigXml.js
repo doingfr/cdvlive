@@ -13,7 +13,6 @@ var ConfigXml = (function () {
             appDirectory = process.cwd();
         }
         var configXmlPath = path.join(appDirectory, 'config.xml');
-        var file = path.join(appDirectory, 'config.xml');
         fs.readFile(configXmlPath, { encoding: 'utf8' }, function (err, data) {
             if (err)
                 return d.reject(err);
@@ -121,7 +120,6 @@ var ConfigXml = (function () {
             }
             //remove <allow-navigation href="*" clive="true">
             if (configJson.widget['allow-navigation']) {
-                var allowclive = configJson.widget['allow-navigation'].filter(function (element) { return element.$['clive']; });
                 configJson.widget['allow-navigation'].forEach(function (element, index, array) {
                     if (element.$['clive']) {
                         array.splice(index, 1);
