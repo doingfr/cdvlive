@@ -5,4 +5,3 @@
 /// <reference path="chokidar/chokidar.d.ts" />
 /// <reference path="micromatch/micromatch.d.ts" />
 /// <reference path="parse-glob/parse-glob.d.ts" />
-
