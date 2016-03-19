@@ -4,7 +4,7 @@
 
 import child_process = require('child_process');
 import Q = require('q');
-import ConfigXml = require('./ConfigXML');
+import ConfigXml = require('./configxml');
 import bSync = require('browser-sync');
 var nopt = require('nopt');
 
