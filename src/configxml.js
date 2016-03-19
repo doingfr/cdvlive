@@ -137,4 +137,4 @@ var ConfigXml = (function () {
     return ConfigXml;
 }());
 module.exports = ConfigXml;
-//# sourceMappingURL=ConfigXml.js.map
+//# sourceMappingURL=configxml.js.map

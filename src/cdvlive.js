@@ -1,7 +1,7 @@
 /// <reference path="../typings/tsd.d.ts" />
 "use strict";
 var child_process = require('child_process');
-var ConfigXml = require('./ConfigXML');
+var ConfigXml = require('./configxml');
 var bSync = require('browser-sync');
 var nopt = require('nopt');
 var exec = child_process.execSync;
