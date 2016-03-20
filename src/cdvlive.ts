@@ -10,7 +10,7 @@ import address = require('./address');
 
 //FixMe: nopt doesn't provide a good typings definition
 var nopt = require('nopt');
-
+var exec = child_process.execSync;
 var pkg = require('../package.json');
 
 class CordovaLiveReload {
@@ -53,7 +53,7 @@ class CordovaLiveReload {
     var serverPath: string = 'www';
     var liveUrl: string;
     var platform: string = options.platform;
-    var exec = child_process.execSync;
+
     var bs = bSync.create();
     var openBrowser: boolean = false;
 
@@ -87,36 +87,43 @@ class CordovaLiveReload {
         }
       ]
     }, (err: Error, bs: { options: any }) => {
-      if (options.ip) {
-        liveUrl = 'http://' + options.ip + ':' + bs.options.getIn(['port']);
+      if (platform === 'browser') {
+        this.runCordova(platform,options);
+        console.log('Ctrl+C to exit');
       } else {
-        liveUrl = bs.options.getIn(['urls', 'external']);
-      }
-      this.setupConfigXML(liveUrl)
-        .then(() => {
-          if(platform !== 'browser'){
-            console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-            console.log('This takes a while if you don\'t have emulator or simulator already running');
-            exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-            /* TODO: if debug then print output from run
-            exec('cordova run ' + platform, {
-              'stdio': 'inherit'
+        // for android and ios 
+        address.getIp({'address':options.ip, 'isPlatformServe': true}).then((ip) => {
+          this.setupConfigXML('http://' + ip + ':' + bs.options.getIn(['port']))
+            .then(() => {
+              this.runCordova(platform,options);
+              return this.resetConfigXML();
+            })
+            .then(() => {
+              console.log('Ctrl+C to exit');
+            })
+            .catch((error) => {
+              console.error(error);
             });
-            */
-          } else {
-            exec('cordova prepare ' + platform);
-          }
-          
-          return this.resetConfigXML();
-        })
-        .then(() => {
-
-          console.log('Ctrl+C to exit');
-        })
-        .catch((error) => {
-          console.error(error);
         });
+      }
+
     });
+  }
+
+  private static runCordova(platform: string, options: any): void {
+    if (platform !== 'browser') {
+      console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+      console.log('This takes a while if you don\'t have emulator or simulator already running');
+      exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+      /* TODO: if debug then print output from run
+      exec('cordova run ' + platform, {
+        'stdio': 'inherit'
+      });
+      */
+    } else {
+      console.log('exec: cordova prepare ' + platform);
+      exec('cordova prepare ' + platform);
+    }
   }
 
   private static setupConfigXML(liveUrl: string): Q.Promise<any> {

@@ -6,6 +6,7 @@ var bSync = require('browser-sync');
 var address = require('./address');
 //FixMe: nopt doesn't provide a good typings definition
 var nopt = require('nopt');
+var exec = child_process.execSync;
 var pkg = require('../package.json');
 var CordovaLiveReload = (function () {
     function CordovaLiveReload() {
@@ -44,7 +45,6 @@ var CordovaLiveReload = (function () {
         var serverPath = 'www';
         var liveUrl;
         var platform = options.platform;
-        var exec = child_process.execSync;
         var bs = bSync.create();
         var openBrowser = false;
         if (platform === 'ios') {
@@ -77,31 +77,38 @@ var CordovaLiveReload = (function () {
                 }
             ]
         }, function (err, bs) {
-            if (options.ip) {
-                liveUrl = 'http://' + options.ip + ':' + bs.options.getIn(['port']);
+            if (platform === 'browser') {
+                _this.runCordova(platform, options);
+                console.log('Ctrl+C to exit');
             }
             else {
-                liveUrl = bs.options.getIn(['urls', 'external']);
+                // for android and ios 
+                address.getIp({ 'address': options.ip, 'isPlatformServe': true }).then(function (ip) {
+                    _this.setupConfigXML('http://' + ip + ':' + bs.options.getIn(['port']))
+                        .then(function () {
+                        _this.runCordova(platform, options);
+                        return _this.resetConfigXML();
+                    })
+                        .then(function () {
+                        console.log('Ctrl+C to exit');
+                    })
+                        .catch(function (error) {
+                        console.error(error);
+                    });
+                });
             }
-            _this.setupConfigXML(liveUrl)
-                .then(function () {
-                if (platform !== 'browser') {
-                    console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-                    console.log('This takes a while if you don\'t have emulator or simulator already running');
-                    exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-                }
-                else {
-                    exec('cordova prepare ' + platform);
-                }
-                return _this.resetConfigXML();
-            })
-                .then(function () {
-                console.log('Ctrl+C to exit');
-            })
-                .catch(function (error) {
-                console.error(error);
-            });
         });
+    };
+    CordovaLiveReload.runCordova = function (platform, options) {
+        if (platform !== 'browser') {
+            console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+            console.log('This takes a while if you don\'t have emulator or simulator already running');
+            exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+        }
+        else {
+            console.log('exec: cordova prepare ' + platform);
+            exec('cordova prepare ' + platform);
+        }
     };
     CordovaLiveReload.setupConfigXML = function (liveUrl) {
         return ConfigXml.setConfigXml(process.cwd(), {
