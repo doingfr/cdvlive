@@ -2,7 +2,7 @@
 
 Live Reload for Apache Cordova
 
-Install
+## Install
 
     $ npm install -g cdvlive cordova
 
@@ -25,3 +25,10 @@ Tip: For Android is better to have the android emulator running before running c
  
  Demo:
  ![](cdvlive.gif)
+ 
+## Contributing
+Use Github issues to report bugs, questions, and enhancement requests
+
+## License
+Licensed under [Apache 2.0](LICENSE-Apache-2.0)
+ 
