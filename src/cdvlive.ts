@@ -24,7 +24,7 @@ class CordovaLiveReload {
     var options = nopt(knownOpts, {}, process.argv, 3);
 
     if (process.argv.length < 3) {
-      console.error('Error: missing <command> use ios, android or ip');
+      console.error('Error: missing <command> use ios, android, browser or ip');
       this.printUsage();
       process.exit(1);
     }
@@ -35,10 +35,11 @@ class CordovaLiveReload {
         return address.getIp({ 'isAddressCmd': true });
       case 'ios':
       case 'android':
+      case 'browser':
         options.platform = command;
         return this.runBrowserSync(options);
       default:
-        console.error('Error: unrecognize <command> use ios, android or ip');
+        console.error('Error: unrecognize <command> use ios, android, browser or ip');
         this.printUsage();
         return process.exit(1);
     }
@@ -51,11 +52,15 @@ class CordovaLiveReload {
     var platform: string = options.platform;
     var exec = child_process.execSync;
     var bs = bSync.create();
+    var openBrowser: boolean = false;
 
     if (platform === 'ios') {
       serverPath = 'platforms/ios/www';
     } else if (platform == 'android') {
       serverPath = 'platforms/android/assets/www';
+    } else if (platform == 'browser') {
+      serverPath = 'platforms/browser/www';
+      openBrowser = true;
     }
 
 
@@ -69,7 +74,7 @@ class CordovaLiveReload {
     bs.init({
       server: serverPath,
       notify: false,
-      open: false,
+      open: openBrowser,
       rewriteRules: [
         {
           match: /<meta http-equiv="Content-Security-Policy".*>/g,
@@ -86,15 +91,19 @@ class CordovaLiveReload {
       }
       this.setupConfigXML(liveUrl)
         .then(() => {
-
-          console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-          console.log('This takes a while if you don\'t have emulator or simulator already running');
-          exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-          /* TODO: if debug then print output from run
-          exec('cordova run ' + platform, {
-            'stdio': 'inherit'
-          });
-          */
+          if(platform !== 'browser'){
+            console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+            console.log('This takes a while if you don\'t have emulator or simulator already running');
+            exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+            /* TODO: if debug then print output from run
+            exec('cordova run ' + platform, {
+              'stdio': 'inherit'
+            });
+            */
+          } else {
+            exec('cordova prepare ' + platform);
+          }
+          
           return this.resetConfigXML();
         })
         .then(() => {
@@ -125,9 +134,10 @@ class CordovaLiveReload {
     Live Reload for Apache Cordova ${pkg.version}
     
     Usage: cdvlive <command> [options] [ -- ropts]
-      <command>  ...... ios || android || ip
+      <command>  ...... ios || android || browser || ip
         ios      ...... use cordova run ios
         android  ...... use cordova run android
+        browser  ...... use cordova prepare browser
         ip       ...... reset ip address saved in config  
         
       [options]  ...... --ip <ip address>

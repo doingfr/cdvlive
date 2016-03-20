@@ -8,11 +8,12 @@ Live Reload for Apache Cordova
 
 
 ```bash    
-    Usage: cdvlive <command> [options] [ -- ropts]
-      <command>  ...... ios || android || ip
+  Usage: cdvlive <command> [options] [ -- ropts]
+      <command>  ...... ios || android || browser || ip
         ios      ...... use cordova run ios
         android  ...... use cordova run android
-        ip       ...... reset ip address saved in config  
+        browser  ...... use cordova prepare browser
+        ip       ...... reset ip address saved in config 
         
       [options]  ...... --ip <ip address>
       
