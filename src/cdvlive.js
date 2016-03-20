@@ -30,6 +30,9 @@ var CordovaLiveReload = (function () {
             case 'browser':
                 options.platform = command;
                 return this.runBrowserSync(options);
+            case 'help':
+                this.printUsage();
+                return process.exit(0);
             default:
                 console.error('Error: unrecognize <command> use ios, android, browser or ip');
                 this.printUsage();
