@@ -50,7 +50,7 @@ Need to add platfoms before running `cdvlive`
  - To specify an ip address or hostname use `--ip` flag like `cdvlive android --ip 10.10.0.2`
  
 ### Debugging Cordova on Android 
-  - Open Chrome or [Chome Canary](https://www.google.com/chrome/browser/canary.html) with url `chome://inspect` this works for Android 4.4+
+  - Open Chrome or [Chome Canary](https://www.google.com/chrome/browser/canary.html) with url [chrome://inspect](chrome://inspect/#devices) this works for Android 4.4+
   - For Android less than 4.4 use Browser-Sync UI -> Remote Debugger (weinre)
  
 ### Debugging Cordova on iOS (iPhone or iPad)
