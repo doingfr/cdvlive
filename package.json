@@ -1,6 +1,6 @@
 {
   "name": "cdvlive",
-  "version": "1.0.1",
+  "version": "1.0.2-dev",
   "description": "Live Reload for Apache Cordova",
   "main": "./cli/cdvlive.js",
   "bin": {
