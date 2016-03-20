@@ -8,10 +8,10 @@ Install
 
 
 ```bash    
-Usage: cdvlive <platform> [OPTIONS] [ROPTS]
+Usage: cdvlive <platform> [OPTIONS] [-- ROPTS]
 
   OPTIONS   --ip <ip address>
-  ROPTS     -- <cordova run options>
+  ROPTS     <cordova run options>
 
 Examples:
   $ cdvlive ios
