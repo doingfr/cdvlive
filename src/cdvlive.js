@@ -12,9 +12,7 @@ var CordovaLiveReload = (function () {
     function CordovaLiveReload() {
     }
     CordovaLiveReload.run = function () {
-        var platform;
         var command;
-        var serverPath;
         var knownOpts = { "ip": String };
         var options = nopt(knownOpts, {}, process.argv, 3);
         if (process.argv.length < 3) {
@@ -43,7 +41,6 @@ var CordovaLiveReload = (function () {
     CordovaLiveReload.runBrowserSync = function (options) {
         var _this = this;
         var serverPath = 'www';
-        var liveUrl;
         var platform = options.platform;
         var bs = bSync.create();
         var openBrowser = false;
@@ -82,7 +79,7 @@ var CordovaLiveReload = (function () {
                 console.log('Ctrl+C to exit');
             }
             else {
-                // for android and ios 
+                // for android and ios
                 address.getIp({ 'address': options.ip, 'isPlatformServe': true }).then(function (ip) {
                     _this.setupConfigXML('http://' + ip + ':' + bs.options.getIn(['port']))
                         .then(function () {
@@ -100,14 +97,14 @@ var CordovaLiveReload = (function () {
         });
     };
     CordovaLiveReload.runCordova = function (platform, options) {
-        if (platform !== 'browser') {
+        if (platform === 'browser') {
+            console.log('exec: cordova prepare ' + platform);
+            exec('cordova prepare ' + platform);
+        }
+        else {
             console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
             console.log('This takes a while if you don\'t have emulator or simulator already running');
             exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
-        }
-        else {
-            console.log('exec: cordova prepare ' + platform);
-            exec('cordova prepare ' + platform);
         }
     };
     CordovaLiveReload.setupConfigXML = function (liveUrl) {

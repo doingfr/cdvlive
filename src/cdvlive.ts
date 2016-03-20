@@ -1,5 +1,6 @@
 /// <reference path="../typings/tsd.d.ts" />
 
+
 "use strict";
 
 import child_process = require('child_process');
@@ -16,10 +17,7 @@ var pkg = require('../package.json');
 class CordovaLiveReload {
 
   public static run(): any {
-    var platform: string;
     var command: string;
-
-    var serverPath: string;
     var knownOpts = { "ip": String };
     var options = nopt(knownOpts, {}, process.argv, 3);
 
@@ -51,7 +49,6 @@ class CordovaLiveReload {
 
   private static runBrowserSync(options: any) {
     var serverPath: string = 'www';
-    var liveUrl: string;
     var platform: string = options.platform;
 
     var bs = bSync.create();
@@ -88,14 +85,14 @@ class CordovaLiveReload {
       ]
     }, (err: Error, bs: { options: any }) => {
       if (platform === 'browser') {
-        this.runCordova(platform,options);
+        this.runCordova(platform, options);
         console.log('Ctrl+C to exit');
       } else {
         // for android and ios 
-        address.getIp({'address':options.ip, 'isPlatformServe': true}).then((ip) => {
+        address.getIp({ 'address': options.ip, 'isPlatformServe': true }).then((ip) => {
           this.setupConfigXML('http://' + ip + ':' + bs.options.getIn(['port']))
             .then(() => {
-              this.runCordova(platform,options);
+              this.runCordova(platform, options);
               return this.resetConfigXML();
             })
             .then(() => {
@@ -111,7 +108,10 @@ class CordovaLiveReload {
   }
 
   private static runCordova(platform: string, options: any): void {
-    if (platform !== 'browser') {
+    if (platform === 'browser') {
+      console.log('exec: cordova prepare ' + platform);
+      exec('cordova prepare ' + platform);
+    } else {
       console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
       console.log('This takes a while if you don\'t have emulator or simulator already running');
       exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
@@ -120,9 +120,6 @@ class CordovaLiveReload {
         'stdio': 'inherit'
       });
       */
-    } else {
-      console.log('exec: cordova prepare ' + platform);
-      exec('cordova prepare ' + platform);
     }
   }
 
