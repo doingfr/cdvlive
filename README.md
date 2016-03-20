@@ -74,3 +74,8 @@ Licensed under [Apache 2.0](LICENSE-Apache-2.0)
  
 ### Why?
 I wanted a tool that was straight forward to use and idependently of any framework
+
+### Roadmap
+- console logs in terminal
+- reload/restart app from terminal
+- evaluate string from terminal on device/emulator
