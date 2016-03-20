@@ -22,6 +22,7 @@ Live Reload for Apache Cordova
     Examples:
       $ cdvlive ios
       $ cdvlive android
+      $ cdvlive browser
       $ cdvlive ip
     
       Starts emulator/simulator unless device is attached pass --emulator to force
