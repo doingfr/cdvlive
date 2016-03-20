@@ -44,14 +44,17 @@ Need to add platfoms first before running `cdvlive`
  - To reset the saved ip address use `cdvlive ip`
  - To specify an ip address or hostname use `--ip` flag like `cdvlive android --ip 10.10.0.2`
  
-## Debugging Android 
- Open Chrome or Chome Canary with url `chome://inspect`
+### Debugging Android 
+  - Open Chrome or [Chome Canary](https://www.google.com/chrome/browser/canary.html) with url `chome://inspect` this works for Android 4.4+
+  - For Android less than 4.4 use Browser-Sync UI -> Remote Debugger (weinre)
  
-## Debugging Android
-  Open Web Inspector on Safari or Nightly Webkit then select Develop-> 
-  On iOS devide enabe in Settings->Safari->Advanced->Web inspector
+### Debugging iOS (iPhone or iPad)
+  - On iOS device (i.e. iPhone) enable in Settings->Safari->Advanced->Web inspector
+  - Open Safari or [Nightly Webkit](https://webkit.org/nightly/) then enable in Preferences -> Advanced - > Show Develop menu
+  - Open Web Inspector on Safari or [Nightly Webkit](https://webkit.org/nightly/) then select Develop->(Simulator or Device) 
 
-
+### Debugging on Browser
+  - Right click on Web App and select `Inspect Element` 
  
 ## Contributing
 Use Github issues to report bugs, questions, and enhancement requests
