@@ -6,10 +6,14 @@ import child_process = require('child_process');
 import Q = require('q');
 import ConfigXml = require('./configxml');
 import bSync = require('browser-sync');
+import address = require('./address');
+
+//FixMe: nopt doesn't provide a good typings definition
 var nopt = require('nopt');
 
 var exec = child_process.execSync;
 var bs = bSync.create();
+var pkg = require('../package.json');
 
 class CordovaLiveReload {
 
@@ -21,7 +25,7 @@ class CordovaLiveReload {
     var cmd = nopt(knownOpts,{},process.argv, 3);
 
     if (process.argv.length < 3) {
-      console.error('Error: missing platform ios or android');
+      console.error('Error: missing <action> use ios, android or ip');
       this.printUsage();
       process.exit(1);
     }
@@ -96,18 +100,30 @@ class CordovaLiveReload {
     })
   }
   private static printUsage(): void {
-    console.log('\nLive Reload for Apache Cordova');
-    console.log('\nUsage: cdvlive <platform> [OPTIONS] [ -- ROPTS]');
-    console.log('  OPTIONS   --ip <ip address>');
-    console.log('  ROPTS     <cordova run options>');
-    console.log('\nExamples:');
-    console.log('  $ cdvlive ios');
-    console.log('  $ cdvlive android');
-    console.log('  $ cdvlive android --ip 10.10.0.2');
-    console.log('  $ cdvlive android --ip 10.10.0.2 -- --emulator');
-    console.log('\n');
-    console.log('If device is attached then it runs on device if not then falls back to emulator/simulator');
+    console.log(this.usage);
   }
+  private static usage: string = `
+    Live Reload for Apache Cordova ${pkg.version}
+    
+    Usage: cdvlive <command> [options] [ -- ropts]
+      <command>  ...... ios || android || ip
+        ios      ...... use cordova run ios
+        android  ...... use cordova run android
+        ip       ...... reset ip address saved in config  
+        
+      [options]  ...... --ip <ip address>
+      
+      [ropts]  ........ -- <cordova run options>
+      
+    Examples:
+      $ cdvlive ios
+      $ cdvlive android
+      $ cdvlive android --ip 10.10.0.2
+      $ cdvlive android --ip 10.10.0.2 -- --emulator
+      $ cdvlive ip
+    
+      Starts emulator/simulator unless device is attached pass --emulator to force
+  `;
 
 }
 

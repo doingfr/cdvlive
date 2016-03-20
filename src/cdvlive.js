@@ -3,9 +3,11 @@
 var child_process = require('child_process');
 var ConfigXml = require('./configxml');
 var bSync = require('browser-sync');
+//FixMe: nopt doesn't provide a good typings definition
 var nopt = require('nopt');
 var exec = child_process.execSync;
 var bs = bSync.create();
+var pkg = require('../package.json');
 var CordovaLiveReload = (function () {
     function CordovaLiveReload() {
     }
@@ -17,7 +19,7 @@ var CordovaLiveReload = (function () {
         var knownOpts = { "ip": String };
         var cmd = nopt(knownOpts, {}, process.argv, 3);
         if (process.argv.length < 3) {
-            console.error('Error: missing platform ios or android');
+            console.error('Error: missing <action> use ios, android or ip');
             this.printUsage();
             process.exit(1);
         }
@@ -90,18 +92,9 @@ var CordovaLiveReload = (function () {
         });
     };
     CordovaLiveReload.printUsage = function () {
-        console.log('\nLive Reload for Apache Cordova');
-        console.log('\nUsage: cdvlive <platform> [OPTIONS] [ROPTS]');
-        console.log('  OPTIONS   --ip <ip address>');
-        console.log('  ROPTS     -- <cordova run options>');
-        console.log('\nExamples:');
-        console.log('  $ cdvlive ios');
-        console.log('  $ cdvlive android');
-        console.log('  $ cdvlive android --ip 10.10.0.2');
-        console.log('  $ cdvlive android --ip 10.10.0.2 -- --emulator');
-        console.log('\n');
-        console.log('If device is attached then it runs on device if not then falls back to emulator/simulator');
+        console.log(this.usage);
     };
+    CordovaLiveReload.usage = "\n    Live Reload for Apache Cordova " + pkg.version + "\n    \n    Usage: cdvlive <command> [options] [ -- ropts]\n      <command>  ...... ios || android || ip\n        ios      ...... use cordova run ios\n        android  ...... use cordova run android\n        ip       ...... reset ip address saved in config  \n        \n      [options]  ...... --ip <ip address>\n      \n      [ropts]  ........ -- <cordova run options>\n      \n    Examples:\n      $ cdvlive ios\n      $ cdvlive android\n      $ cdvlive android --ip 10.10.0.2\n      $ cdvlive android --ip 10.10.0.2 -- --emulator\n      $ cdvlive ip\n    \n      Starts emulator/simulator unless device is attached pass --emulator to force\n  ";
     return CordovaLiveReload;
 }());
 module.exports = CordovaLiveReload;
