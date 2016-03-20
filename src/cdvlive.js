@@ -3,36 +3,50 @@
 var child_process = require('child_process');
 var ConfigXml = require('./configxml');
 var bSync = require('browser-sync');
+var address = require('./address');
 //FixMe: nopt doesn't provide a good typings definition
 var nopt = require('nopt');
-var exec = child_process.execSync;
-var bs = bSync.create();
 var pkg = require('../package.json');
 var CordovaLiveReload = (function () {
     function CordovaLiveReload() {
     }
     CordovaLiveReload.run = function () {
-        var _this = this;
         var platform;
-        var liveUrl;
+        var command;
         var serverPath;
         var knownOpts = { "ip": String };
-        var cmd = nopt(knownOpts, {}, process.argv, 3);
+        var options = nopt(knownOpts, {}, process.argv, 3);
         if (process.argv.length < 3) {
-            console.error('Error: missing <action> use ios, android or ip');
+            console.error('Error: missing <command> use ios, android or ip');
             this.printUsage();
             process.exit(1);
         }
-        platform = process.argv[2];
+        command = process.argv[2];
+        switch (command) {
+            case 'ip':
+                return address.getIp({ 'isAddressCmd': true });
+            case 'ios':
+            case 'android':
+                options.platform = command;
+                return this.runBrowserSync(options);
+            default:
+                console.error('Error: unrecognize <command> use ios, android or ip');
+                this.printUsage();
+                return process.exit(1);
+        }
+    };
+    CordovaLiveReload.runBrowserSync = function (options) {
+        var _this = this;
+        var serverPath = 'www';
+        var liveUrl;
+        var platform = options.platform;
+        var exec = child_process.execSync;
+        var bs = bSync.create();
         if (platform === 'ios') {
             serverPath = 'platforms/ios/www';
         }
         else if (platform == 'android') {
             serverPath = 'platforms/android/assets/www';
-        }
-        else {
-            this.printUsage();
-            process.exit(1);
         }
         // Listen to change events on HTML and reload
         bs.watch('www/**/*.*').on('change', function (file) {
@@ -54,17 +68,17 @@ var CordovaLiveReload = (function () {
                 }
             ]
         }, function (err, bs) {
-            if (cmd.ip) {
-                liveUrl = 'http://' + cmd.ip + ':' + bs.options.getIn(['port']);
+            if (options.ip) {
+                liveUrl = 'http://' + options.ip + ':' + bs.options.getIn(['port']);
             }
             else {
                 liveUrl = bs.options.getIn(['urls', 'external']);
             }
             _this.setupConfigXML(liveUrl)
                 .then(function () {
-                console.log('exec: cordova run ' + platform + ' ' + cmd.argv.remain.join(' '));
+                console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
                 console.log('This takes a while if you don\'t have emulator or simulator already running');
-                exec('cordova run ' + platform + ' ' + cmd.argv.remain.join(' '));
+                exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
                 /* TODO: if debug then print output from run
                 exec('cordova run ' + platform, {
                   'stdio': 'inherit'

@@ -11,35 +11,54 @@ import address = require('./address');
 //FixMe: nopt doesn't provide a good typings definition
 var nopt = require('nopt');
 
-var exec = child_process.execSync;
-var bs = bSync.create();
 var pkg = require('../package.json');
 
 class CordovaLiveReload {
 
-  public static run(): void {
+  public static run(): any {
     var platform: string;
-    var liveUrl: string;
+    var command: string;
+
     var serverPath: string;
     var knownOpts = { "ip": String };
-    var cmd = nopt(knownOpts,{},process.argv, 3);
+    var options = nopt(knownOpts, {}, process.argv, 3);
 
     if (process.argv.length < 3) {
-      console.error('Error: missing <action> use ios, android or ip');
+      console.error('Error: missing <command> use ios, android or ip');
       this.printUsage();
       process.exit(1);
     }
-    platform = process.argv[2];
-   
-    if(platform === 'ios'){
+    command = process.argv[2];
+
+    switch (command) {
+      case 'ip':
+        return address.getIp({ 'isAddressCmd': true });
+      case 'ios':
+      case 'android':
+        options.platform = command;
+        return this.runBrowserSync(options);
+      default:
+        console.error('Error: unrecognize <command> use ios, android or ip');
+        this.printUsage();
+        return process.exit(1);
+    }
+
+  }
+
+  private static runBrowserSync(options: any) {
+    var serverPath: string = 'www';
+    var liveUrl: string;
+    var platform: string = options.platform;
+    var exec = child_process.execSync;
+    var bs = bSync.create();
+
+    if (platform === 'ios') {
       serverPath = 'platforms/ios/www';
-    } else if (platform == 'android'){
+    } else if (platform == 'android') {
       serverPath = 'platforms/android/assets/www';
-    } else {
-      this.printUsage();
-      process.exit(1);
     }
-    
+
+
     // Listen to change events on HTML and reload
     bs.watch('www/**/*.*').on('change', (file: string) => {
       console.log('exec: cordova prepare');
@@ -60,17 +79,17 @@ class CordovaLiveReload {
         }
       ]
     }, (err: Error, bs: { options: any }) => {
-      if (cmd.ip) {
-        liveUrl = 'http://' + cmd.ip + ':' + bs.options.getIn(['port']);
+      if (options.ip) {
+        liveUrl = 'http://' + options.ip + ':' + bs.options.getIn(['port']);
       } else {
         liveUrl = bs.options.getIn(['urls', 'external']);
       }
       this.setupConfigXML(liveUrl)
         .then(() => {
-          
-          console.log('exec: cordova run ' + platform + ' ' + cmd.argv.remain.join(' '));
+
+          console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
           console.log('This takes a while if you don\'t have emulator or simulator already running');
-          exec('cordova run ' + platform + ' ' + cmd.argv.remain.join(' '));
+          exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
           /* TODO: if debug then print output from run
           exec('cordova run ' + platform, {
             'stdio': 'inherit'
@@ -86,8 +105,8 @@ class CordovaLiveReload {
           console.error(error);
         });
     });
-
   }
+
   private static setupConfigXML(liveUrl: string): Q.Promise<any> {
     return ConfigXml.setConfigXml(process.cwd(), {
       errorWhenNotFound: true,
