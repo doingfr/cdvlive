@@ -37,8 +37,8 @@ Tip: For Android is better to have the android emulator running before running c
   Demo:
  ![](cdvlive.gif)
  
-## Missing Platorms
-Need to add platfoms first before running `cdvlive`
+## Add Platorms first
+Need to add platfoms before running `cdvlive`
 - To add android run `cordova platform add androi@latest`
 - To add ios run `cordova platform add ios@latest`
 - To add browser run `cordova platform add browser@latest`
