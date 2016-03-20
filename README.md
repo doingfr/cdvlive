@@ -43,22 +43,22 @@ Need to add platfoms before running `cdvlive`
 - To add ios run `cordova platform add ios@latest`
 - To add browser run `cordova platform add browser@latest`
 
-## Managing IP Addresses
+## Managing Live Reload IP Addresses
  By default the cli prompts for ip address to use, it saves the value for later use to avoid prompting all the time if the address is still valid
  
  - To reset the saved ip address use `cdvlive ip`
  - To specify an ip address or hostname use `--ip` flag like `cdvlive android --ip 10.10.0.2`
  
-### Debugging Android 
+### Debugging Cordova on Android 
   - Open Chrome or [Chome Canary](https://www.google.com/chrome/browser/canary.html) with url `chome://inspect` this works for Android 4.4+
   - For Android less than 4.4 use Browser-Sync UI -> Remote Debugger (weinre)
  
-### Debugging iOS (iPhone or iPad)
+### Debugging Cordova on iOS (iPhone or iPad)
   - On iOS device (i.e. iPhone) enable in Settings->Safari->Advanced->Web inspector
   - Open Safari or [Nightly Webkit](https://webkit.org/nightly/) then enable in Preferences -> Advanced - > Show Develop menu
   - Open Web Inspector on Safari or [Nightly Webkit](https://webkit.org/nightly/) then select Develop->(Simulator or Device) 
 
-### Debugging on Browser
+### Debugging Cordova on Browser
   - Right click on Web App and select `Inspect Element` 
  
 ## Contributing
