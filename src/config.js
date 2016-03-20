@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+/*eslint no-process-env: 0*/
 "use strict";
 var path = require('path');
 var fs = require('fs');
@@ -10,7 +11,7 @@ var CDVLiveConfig = (function () {
     }
     CDVLiveConfig.prototype.load = function () {
         if (fs.existsSync(this.file)) {
-            this.data = require(this.file);
+            this.data = JSON.parse(fs.readFileSync(this.file, 'utf8'));
         }
         else {
             this.data = {};
