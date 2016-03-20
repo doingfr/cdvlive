@@ -1,6 +1,9 @@
-##cdvlive [![Build Status](https://travis-ci.org/csantanapr/cdvlive.svg?branch=master)](https://travis-ci.org/csantanapr/cdvlive)
+##cdvlive : Live Reload for Apache Cordova
+[![Build Status](https://travis-ci.org/csantanapr/cdvlive.svg?branch=master)](https://travis-ci.org/csantanapr/cdvlive)
+[![Dependency Status](https://david-dm.org/csantanapr/cdvlive.svg)](https://david-dm.org/csantanapr/cdvlive)
+[![devDependency Status](https://david-dm.org/csantanapr/cdvlive/dev-status.svg)](https://david-dm.org/csantanapr/cdvlive#info=devDependencies)
 
-Live Reload for Apache Cordova
+
 
 ## Install
 
