@@ -8,18 +8,26 @@ Live Reload for Apache Cordova
 
 
 ```bash    
-Usage: cdvlive <platform> [OPTIONS] [-- ROPTS]
+    Usage: cdvlive <command> [options] [ -- ropts]
+      <command>  ...... ios || android || ip
+        ios      ...... use cordova run ios
+        android  ...... use cordova run android
+        ip       ...... reset ip address saved in config  
+        
+      [options]  ...... --ip <ip address>
+      
+      [ropts]  ........ -- <cordova run options>
+      
+    Examples:
+      $ cdvlive ios
+      $ cdvlive android
+      $ cdvlive android --ip 10.10.0.2
+      $ cdvlive android --ip 10.10.0.2 -- --emulator
+      $ cdvlive ip
+    
+      Starts emulator/simulator unless device is attached pass --emulator to force
 
-  OPTIONS   --ip <ip address>
-  ROPTS     <cordova run options>
 
-Examples:
-  $ cdvlive ios
-  $ cdvlive android
-  $ cdvlive android --ip 10.10.0.2
-  $ cdvlive android --ip 10.10.0.2 -- --emulator
-
-Runs on device, if device not attached then runs on emulator/simulator
 ```
 Tip: For Android is better to have the android emulator running before running cdvlive command
  
