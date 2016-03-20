@@ -79,7 +79,7 @@ var CordovaLiveReload = (function () {
                 console.log('Ctrl+C to exit');
             }
             else {
-                // for android and ios 
+                // for android and ios
                 address.getIp({ 'address': options.ip, 'isPlatformServe': true }).then(function (ip) {
                     _this.setupConfigXML('http://' + ip + ':' + bs.options.getIn(['port']))
                         .then(function () {

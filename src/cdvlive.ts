@@ -88,7 +88,7 @@ class CordovaLiveReload {
         this.runCordova(platform, options);
         console.log('Ctrl+C to exit');
       } else {
-        // for android and ios 
+        // for android and ios
         address.getIp({ 'address': options.ip, 'isPlatformServe': true }).then((ip) => {
           this.setupConfigXML('http://' + ip + ':' + bs.options.getIn(['port']))
             .then(() => {
