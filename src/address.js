@@ -24,24 +24,24 @@ var Address = (function () {
                 // reset any address configs
                 cdvliveConfig.set(addressConfigKey, null);
             }
+            else if (options.address) {
+                tryAddress = options.address;
+            }
             else {
-                if (!options.address)
-                    tryAddress = cdvliveConfig.get(addressConfigKey);
-                else
-                    tryAddress = options.address;
+                tryAddress = cdvliveConfig.get(addressConfigKey);
             }
             if (ifaces) {
                 for (var dev in ifaces) {
-                    if (!dev)
-                        continue;
-                    ifaces[dev].forEach(function (details) {
-                        if (details && details.family == 'IPv4' && !details.internal && details.address) {
-                            addresses.push({
-                                address: details.address,
-                                dev: dev
-                            });
-                        }
-                    });
+                    if (dev) {
+                        ifaces[dev].forEach(function (details) {
+                            if (details && details.family == 'IPv4' && !details.internal && details.address) {
+                                addresses.push({
+                                    address: details.address,
+                                    dev: dev
+                                });
+                            }
+                        });
+                    }
                 }
             }
             if (tryAddress) {
