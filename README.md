@@ -37,13 +37,15 @@ Tip: For Android is better to have the android emulator running before running c
   Demo:
  ![](cdvlive.gif)
  
-## Add Platorms first
+## Documentation
+
+### Add Platorms first
 Need to add platfoms before running `cdvlive`
 - To add android run `cordova platform add androi@latest`
 - To add ios run `cordova platform add ios@latest`
 - To add browser run `cordova platform add browser@latest`
 
-## Managing Live Reload IP Addresses
+### Managing Live Reload IP Addresses
  By default the cli prompts for ip address to use, it saves the value for later use to avoid prompting all the time if the address is still valid
  
  - To reset the saved ip address use `cdvlive ip`
@@ -64,6 +66,11 @@ Need to add platfoms before running `cdvlive`
 ## Contributing
 Use Github issues to report bugs, questions, and enhancement requests
 
+## Social
+Like the tool? tell your friends and let me know on Twitter [csantanapr](https://twitter.com/csantanapr)
+
 ## License
 Licensed under [Apache 2.0](LICENSE-Apache-2.0)
  
+### Why?
+I wanted a tool that was straight forward to use and idependently of any framework
