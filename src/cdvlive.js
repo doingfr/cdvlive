@@ -104,7 +104,7 @@ var CordovaLiveReload = (function () {
         else {
             console.log('exec: cordova run ' + platform + ' ' + options.argv.remain.join(' '));
             console.log('This takes a while if you don\'t have emulator or simulator already running');
-            exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '));
+            exec('cordova run ' + platform + ' ' + options.argv.remain.join(' '), {stdio: "inherit"});
         }
     };
     CordovaLiveReload.setupConfigXML = function (liveUrl) {
